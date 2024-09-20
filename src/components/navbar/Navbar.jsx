@@ -13,7 +13,7 @@ const Navbar = () => {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 2 }}
         >
-          Jeeva Madhaiyan
+          Hervy Tyler
         </motion.span>
         <div className="social">
           <a href="#">
