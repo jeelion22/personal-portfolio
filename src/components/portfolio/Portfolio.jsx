@@ -1,12 +1,12 @@
 import { useRef } from "react";
 import "./portfolio.scss";
-import { motion, useScroll, useSpring } from "framer-motion";
+import { motion, useScroll, useSpring, useTransform } from "framer-motion";
 
 const items = [
   {
     id: 1,
     title: "React Commerce",
-    img: "https://www.pexels.com/photo/two-women-standing-in-front-of-a-shop-27757573/",
+    img: "https://images.pexels.com/photos/28486840/pexels-photo-28486840/free-photo-of-turkish-coffee-and-tea-on-traditional-tray.jpeg?auto=compress&cs=tinysrgb&w=300&lazy=load",
     desc: "Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quaerat tempora doloremque cum perferendis, iure omnis quidem quo sunt sapiente placeat, repudiandae neque dolorem molestiae ex iste libero pariatur ad mollitia!",
   },
   {
@@ -30,7 +30,31 @@ const items = [
 ];
 
 const Single = ({ item }) => {
-  return <section>{item.title}</section>;
+  const ref = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    // offset: ["start start", "end start"],
+  });
+
+  const y = useTransform(scrollYProgress, [0, 1], [-300, 300]);
+
+  return (
+    <section>
+      <div className="container">
+        <div className="wrapper">
+          <div className="imageContainer" ref={ref}>
+            <img src={item.img} alt="" />
+          </div>
+          <motion.div className="textContainer" style={{ y }}>
+            <h2>{item.title}</h2>
+            <p>{item.desc}</p>
+            <button>See Demo</button>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  );
 };
 
 const Portfolio = () => {
